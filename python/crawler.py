@@ -43,7 +43,7 @@ class HtmlDoc(object):
                 raise NotHtml(url, response)
             else:
                 return cls(url, BeautifulSoup(body))
-        except httplib2.ServerNotFoundError, e:
+        except (httplib2.ServerNotFoundError, ValueError), e:
             raise HostNotFound(url)
         
     
@@ -53,9 +53,7 @@ class HtmlDoc(object):
     
     @property
     def contents(self):
-        for element in self.soup.recursiveChildGenerator():
-            if isinstance(element, unicode):
-                yield element
+        return (el.string for el in self.soup.findAll('p') if el.string)
     
     @property
     def outbound_urls(self):
@@ -68,15 +66,26 @@ class HtmlDoc(object):
             if href[0] == '#':
                 continue
             
+            current_url_parts = urlparse(self.url)
+
             if href[0] == '/':
-                url_parts = urlparse(self.url)
                 href = "%s://%s%s" % (
-                    url_parts.scheme,
-                    url_parts.netloc, 
+                    current_url_parts.scheme,
+                    current_url_parts.netloc, 
                     href
                 )
             
-            if urlparse(href).scheme not in ['http', 'https']:
+            href_parts = urlparse(href)
+            
+            # Avoid urls with query strings. 
+            # In mediawiki, those are usually admin pages
+            if current_url_parts.netloc != href_parts.netloc:
+                continue
+            
+            if href_parts.scheme not in ['http', 'https']:
+                continue
+            
+            if href_parts.query != '':
                 continue
             
             yield href
