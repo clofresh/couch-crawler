@@ -30,5 +30,10 @@ function(doc) {
     output.add(doc[field], valid_fields[field]);
   }
   
+  output.add(
+    doc["title"] + "\n" + doc["contents"], 
+    {field: "default", store: "no", index: "analyzed"}
+  );
+  
   return output;
 }
