@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Generated CouchApp</title>
+    <title>Search Engine!</title>
     <link rel="stylesheet" href="style/main.css" type="text/css">
+    <script src="/_utils/script/json2.js"></script>
+    <script src="/_utils/script/jquery.js?1.3.1"></script>
+    <script src="/_utils/script/jquery.couch.js?0.9.0"></script>
+    <script src="js/jquery.mustache-0.2.1.js"></script>
+    <script src="js/underscore-0.5.2.js"></script>
+    <script src="js/crawler.js"></script>
   </head>
   <body>
-    <h1>Generated CouchApp</h1>
-    <p>This is a placeholder page</p>
+    <h1>Search Engine!</h1>
+
+    <form id="search_form" 
+          method="get" 
+          action="/crawler/_fti/crawler/all">
+      <input name="q" />
+      <input type="hidden" name="limit" value="20">
+      <input type="hidden" name="skip"  value="0">
+      <input type="submit" />
+    </form>
+    
+    <div id="search_results_metadata"></div>
+    <div id="search_results"></div>
+    <div id="search_pager"></div>
+    
+    
   </body>
-  <script src="/_utils/script/json2.js"></script>
-  <script src="/_utils/script/jquery.js?1.3.1"></script>
-  <script src="/_utils/script/jquery.couch.js?0.9.0"></script>
 </html>
