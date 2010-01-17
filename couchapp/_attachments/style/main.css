@@ -1,1 +1,50 @@
-/* add styles here */
+* {
+  font-family: arial;
+}
+
+hr {
+  border: 1px solid #ddd;
+}
+
+#search_form input {
+  font-size: 1.125em;
+}
+
+#input_q {
+  width: 60%;
+}
+
+#search_results_metadata {
+  font-size: .9em;
+  margin-top:1em;
+  margin-bottom:1em;
+}
+
+#search_results {
+  width: 600px;
+  margin-left: 25px;
+}
+
+.search_result h1 {
+  font-size: 1.25em;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.search_result footer {
+  color: green;
+  white-space: nowrap;
+}
+
+#search_pager {
+  display: block;
+  font-size:1em;
+  width: 600px;
+  text-align: center;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 100px;
+}
+
+
+

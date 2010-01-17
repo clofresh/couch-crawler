@@ -51,7 +51,7 @@ var crawler = {
           '<article class="search_result">',
             '<header><h1><a href="{{url}}">{{title}}</a></h1></header>',
             '<p>{{snippet}}</p>',
-            '<footer><a href="{{url}}">{{url}}</a></footer>',
+            '<footer>{{url}}</footer>',
           '</article>',
         '{{/rows}}'
       ].join("\n"),
