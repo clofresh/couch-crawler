@@ -7,9 +7,10 @@ function(doc) {
     "contents"
   ];
   
-  for (var f in valid_fields) {
+  for (var i in valid_fields) {
+    var field = valid_fields[i];
     output.add(
-      doc[f], 
+      doc[field], 
       {
         field: f,
         store: "yes",
