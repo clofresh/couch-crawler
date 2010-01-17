@@ -42,7 +42,15 @@ var crawler = {
   
   search_results: function(data) {
     return $.mustache(
-      '{{#rows}} <div>{{mod_datetime}} - <a href="{{url}}">{{title}}</a></div> {{/rows}}',
+      [
+        '{{#rows}}',
+          '<article class="search_result">',
+            '<header><h1><a href="{{url}}">{{title}}</a></h1></header>',
+            '<p>{{snippet}}</p>',
+            '<footer><a href="{{url}}">{{url}}</a></footer>',
+          '</article>',
+        '{{/rows}}'
+      ].join("\n"),
       {rows: _(data.rows).map( function(row) { return row.fields } )}
     )
   },

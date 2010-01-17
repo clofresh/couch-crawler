@@ -11,21 +11,23 @@
     <script src="js/crawler.js"></script>
   </head>
   <body>
-    <h1>Search Engine!</h1>
+    <header>
+      <h1>Search Engine!</h1>
 
-    <form id="search_form" 
-          method="get" 
-          action="/crawler/_fti/crawler/all">
-      <input name="q" />
-      <input type="hidden" name="limit" value="20">
-      <input type="hidden" name="skip"  value="0">
-      <input type="submit" />
-    </form>
+      <form id="search_form" 
+            method="get" 
+            action="/crawler/_fti/crawler/all">
+        <input name="q" />
+        <input type="hidden" name="limit" value="20">
+        <input type="hidden" name="skip"  value="0">
+        <input type="submit" />
+      </form>
+    </header>
     
-    <div id="search_results_metadata"></div>
-    <div id="search_results"></div>
-    <div id="search_pager"></div>
-    
-    
+    <section id="content">
+      <header id="search_results_metadata"></header>
+      <div    id="search_results"></div>
+      <footer id="search_pager"></footer>
+    </section>
   </body>
 </html>
