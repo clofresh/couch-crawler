@@ -61,6 +61,11 @@ var crawler = {
   
   search_pager: function(data) {
     var num_pages = Math.ceil(data.total_rows / data.limit);
+    
+    if (num_pages == 1) { 
+      return ''; 
+    }
+    
     var current_page = parseInt(data.skip / data.limit) + 1;
     
     return _(_.range(num_pages)).map(function(i) {

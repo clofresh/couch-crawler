@@ -25,10 +25,28 @@ hr {
   margin-left: 25px;
 }
 
+.search_result {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+}
+
 .search_result h1 {
-  font-size: 1.25em;
+  font-size: 1.1em;
   font-weight: bold;
   white-space: nowrap;
+}
+
+.search_result header * {
+  padding: 0em;
+  margin: 0em;
+}
+
+.search_result p {
+  padding: 0em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
 }
 
 .search_result footer {
