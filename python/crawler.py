@@ -7,13 +7,17 @@ from couchdb.client import Server, ResourceNotFound
 from BeautifulSoup import BeautifulSoup
 
 class UrlException(Exception):
-    def __init__(self, message, url, response):
+    def __init__(self, message, url, response={}):
         message = '%s: %s (%s)' % (message, url, repr(response))
         Exception.__init__(self, message)
 
 class UrlNotFound(UrlException):
     def __init__(self, url, response):
-        UrlException.__init__(self, "Not found", url, response)
+        UrlException.__init__(self, "Url not found", url, response)
+
+class HostNotFound(UrlException):
+    def __init__(self, url):
+        UrlException.__init__(self, "Host not found", url)
 
 class NotHtml(UrlException):
     def __init__(self, url, response):
@@ -29,14 +33,19 @@ class HtmlDoc(object):
     @classmethod
     def from_url(cls, url):
         http_client = httplib2.Http()
-        response, body = http_client.request(url)
         
-        if response['status'] != '200':
-            raise UrlNotFound(url, response)
-        elif response['content-type'].find('text/html') == -1:
-            raise NotHtml(url, response)
-        else:
-            return cls(url, BeautifulSoup(body))
+        try:
+            response, body = http_client.request(url)
+
+            if response['status'] != '200':
+                raise UrlNotFound(url, response)
+            elif response['content-type'].find('text/html') == -1:
+                raise NotHtml(url, response)
+            else:
+                return cls(url, BeautifulSoup(body))
+        except httplib2.ServerNotFoundError, e:
+            raise HostNotFound(url)
+        
     
     @property
     def title(self):
