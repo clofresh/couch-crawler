@@ -35,5 +35,7 @@ function(doc) {
     {field: "default", store: "no", index: "analyzed"}
   );
   
+  output.add(doc["contents"].substr(0, 140), {field: "snippet", store: "yes", index: "no"});
+  
   return output;
 }
