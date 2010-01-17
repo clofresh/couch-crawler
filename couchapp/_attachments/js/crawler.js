@@ -1,6 +1,12 @@
 $(document).ready(function() {
-  $("#search_form").bind("submit", function() {
-    var url = $("#search_form")[0].action 
+  _(["q", "limit", "skip"]).each(function(field) {
+    var input = $.query.get(field);
+    if (input) {
+      $('#input_' + field).attr('value', input);
+    }
+  });
+
+    var url = '/crawler/_fti/crawler/all' 
                 + "?" + $("#search_form").serialize();
     $.getJSON(url, 
       function(data) {
@@ -15,8 +21,6 @@ $(document).ready(function() {
         });
 
       });
-    return false;
-  });
 });
 
 
