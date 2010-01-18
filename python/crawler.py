@@ -77,14 +77,15 @@ class HtmlDoc(object):
             
             href_parts = urlparse(href)
             
-            # Avoid urls with query strings. 
-            # In mediawiki, those are usually admin pages
+            # Stay in the current domain
             if current_url_parts.netloc != href_parts.netloc:
                 continue
             
             if href_parts.scheme not in ['http', 'https']:
                 continue
             
+            # Avoid urls with query strings. 
+            # In mediawiki, those are usually admin pages
             if href_parts.query != '':
                 continue
             
