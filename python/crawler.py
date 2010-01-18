@@ -89,6 +89,9 @@ class HtmlDoc(object):
             if href_parts.query != '':
                 continue
             
+            if element.get('rel', None) == 'nofollow':
+                continue
+            
             yield href
 
     
