@@ -1,0 +1,3 @@
+[submodule "erlang/deps/couchbeam"]
+	path = erlang/deps/couchbeam
+	url = git://github.com/benoitc/couchbeam.git
