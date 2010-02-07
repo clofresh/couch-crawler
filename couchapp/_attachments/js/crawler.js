@@ -1,7 +1,9 @@
 $(document).ready(function() {
   var q = $.query.get('q');
+  // kind of a hack to handle the case of "?q=", which sets q to the boolean true
+  var q_is_not_a_bool_true = (+q != true);
   
-  if (q) {
+  if (q && q_is_not_a_bool_true) {
     $('#input_q').attr('value', q);
   
     $.getJSON('/crawler/_fti/crawler/all' + $.query.toString(), 
