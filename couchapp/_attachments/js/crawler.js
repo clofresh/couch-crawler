@@ -1,20 +1,14 @@
 $(document).ready(function() {
   var q = $.query.get('q');
-  $('#input_q').attr('value', q);
   
   if (q) {
-    var url = '/crawler/_fti/crawler/all' + $.query.toString();
-    $.getJSON(url, 
-      function(data) {
-        var updates = [
-          "search_results_metadata",
-          "search_results",
-          "search_pager"
-        ];
-      
-        _(updates).map(function(section) { 
-          $("#" + section).html(crawler[section](data)) 
-        });
+    $('#input_q').attr('value', q);
+  
+    $.getJSON('/crawler/_fti/crawler/all' + $.query.toString(), 
+      function(search_results) {
+        $("#search_results_metadata").html(crawler.search_results_metadata(search_results)); 
+        $("#search_results").html(crawler.search_results(search_results)); 
+        $("#search_pager").html(crawler.search_pager(search_results, $.query)); 
     });
   }
 });
@@ -49,7 +43,7 @@ var crawler = {
     )
   },
   
-  search_pager: function(data) {
+  search_pager: function(data, search_query) {
     var num_pages = Math.ceil(data.total_rows / data.limit);
     
     if (num_pages == 1) { 
@@ -65,12 +59,12 @@ var crawler = {
           return page_num;
 
         } else {
-          var skip = i * $.query.get('limit');
+          var skip = i * search_query.get('limit');
           return $.mustache(
             '<a href="index.html{{query}}" class="pager_link">{{page_num}}</a>', 
             {
               "page_num": page_num, 
-              "query": $.query.set('skip', skip).toString()
+              "query": search_query.set('skip', skip).toString()
             }
           );
 
