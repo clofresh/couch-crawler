@@ -5,8 +5,17 @@ $(document).ready(function() {
   
   if (q && q_is_not_a_bool_true) {
     $('#input_q').attr('value', q);
-  
-    $.getJSON('/crawler/_fti/crawler/all' + $.query.toString(), 
+    
+    var url = $.mustache(
+                '/{{db}}/_fti/crawler/all{{query_string}}',
+                {
+                  db:           jQuery.url.segment(0),
+                  query_string: $.query.toString()
+                }
+              );
+    
+    $.getJSON(
+      url,
       function(search_results) {
         $("#search_results_metadata").html(crawler.search_results_metadata(search_results)); 
         $("#search_results").html(crawler.search_results(search_results)); 
