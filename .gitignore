@@ -1,0 +1,3 @@
+*.pyc
+dropin.cache
+python/couchcrawler.cfg
