@@ -5,7 +5,7 @@ from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import HtmlXPathSelector
 
-from couchcrawler.items import CouchCrawlerItem
+from couchcrawler.items import IndexableItem
 
 from couchcrawler.settings import config
 
@@ -26,7 +26,8 @@ class WikiSpider(CrawlSpider):
     def parse_wiki(self, response):
         hxs = HtmlXPathSelector(response)
         
-        item = CouchCrawlerItem()
+        item = IndexableItem()
+        item['type'] = 'wiki'
         item['title'] = hxs.select('//title/text()').extract()[0]
         item['url'] = response.url
         item['mod_datetime'] = datetime.now().isoformat()

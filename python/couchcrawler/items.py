@@ -5,8 +5,21 @@
 
 from scrapy.item import Item, Field
 
-class CouchCrawlerItem(Item):
+class IndexableItem(Item):
     url = Field()
     contents = Field()
     title = Field()
     mod_datetime = Field()
+    type = Field()
+
+class YammerItem(IndexableItem):
+    url = Field()
+    contents = Field()
+    title = Field()
+    mod_datetime = Field()
+    type = Field()
+
+    author = Field()
+    parent_url = Field()
+    thread_url = Field()
+    likes = Field()

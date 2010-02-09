@@ -15,7 +15,7 @@ BOT_VERSION = '1.0'
 
 SPIDER_MODULES = ['couchcrawler.spiders']
 NEWSPIDER_MODULE = 'couchcrawler.spiders'
-DEFAULT_ITEM_CLASS = 'couchcrawler.items.CouchCrawlerItem'
+DEFAULT_ITEM_CLASS = 'couchcrawler.items.IndexableItem'
 USER_AGENT = '%s/%s' % (BOT_NAME, BOT_VERSION)
 ITEM_PIPELINES = [
     'couchcrawler.pipelines.CouchCrawlerPipeline'
