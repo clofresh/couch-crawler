@@ -13,8 +13,12 @@ Dependencies
 [Python](http://www.python.org/)
 
 * [couchdb-python](http://code.google.com/p/couchdb-python/)
-* [httplib2](http://code.google.com/p/httplib2/)
-* [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/)
+* [scrapy](http://scrapy.org/)
+
+Optionally for [Yammer](http://yammer.com) spidering:
+
+* [pyopenssl](http://pypi.python.org/pypi/pyOpenSSL)
+* [oauth](http://code.google.com/p/oauth/)
 
 Installation
 ------------
@@ -29,16 +33,24 @@ This will create a new CouchDB database called "crawler" on the localhost:5984
 CouchDB instance. To change the db, modify couchapp/.couchapprc and do another
 couchapp push.
 
+To configure the crawler, copy python/couchcrawler-sample.cfg to python/couchcrawler.cfg and fill out the appropriate configuration values. 
+
 To start indexing pages, run the crawler script:
 
     cd python
-    python crawler.py http://url_to_crawl1 http://url_to_crawl2 ...
-
-The crawler will start indexing given urls and follow and index any links it 
-finds. You can set the max depth to follow urls with the -d option.
+    ./scrapy-ctl.py crawl domain_to_crawl.com
 
 While it's indexing, you can visit the search engine at the following url:
 
   http://localhost:5984/crawler/_design/crawler/index.html
+  
+Spiders
+-------
+The crawler current has spiders for:
 
+* MediaWiki
+* Twiki
+* Yammer
+
+It's pretty easy to create your own. See python/couchcrawler/spiders/wiki.py for an example, or [Scrapy documentation](http://doc.scrapy.org/intro/tutorial.html) for more a more in-depth explanation.
 
